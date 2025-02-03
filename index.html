@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Parcel Tetris</title>
+    <title>GLOBAL OUTBOUND</title>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; }
         canvas {
             display: block;
             margin: auto;
             background: #000;
+            width: 375px;
+            height: 667px;
         }
     </style>
 </head>
 <body>
-    <h1>Play Parcel Tetris!</h1>
-    <canvas id="tetris" width="300" height="600"></canvas>
+    <h1>GLOBAL OUTBOUND</h1>
+    <h2>Click to start</h2>
+    <canvas id="tetris" width="375" height="667"></canvas>
     <script>
         const canvas = document.getElementById("tetris");
         const ctx = canvas.getContext("2d");
-        ctx.scale(30, 30);
+        ctx.scale(375 / 10, 667 / 20);
 
         const parcelImage = new Image();
         parcelImage.src = "https://cdn3.iconfinder.com/data/icons/e-commerce-22/128/parcel-1024.png";
@@ -103,6 +106,8 @@
         }
 
         function update(time = 0) {
+            if (!gameStarted) return;
+
             const deltaTime = time - lastTime;
             dropCounter += deltaTime;
             if (dropCounter > 1000) {
@@ -132,7 +137,14 @@
         let lastTime = 0;
         const arena = createMatrix(10, 20);
         const player = { pos: { x: 5, y: 0 }, matrix: tetrominoes['T'] };
-        update();
+        let gameStarted = false;
+
+        canvas.addEventListener("click", () => {
+            if (!gameStarted) {
+                gameStarted = true;
+                update();
+            }
+        });
     </script>
 </body>
 </html>
